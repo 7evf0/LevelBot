@@ -1,8 +1,18 @@
 
 const discord = require("discord.js");
-const { IntentsBitField } = discord;
 const dotenv = require("dotenv");
+const { IntentsBitField } = discord;
 const eventHandler = require("./events/eventHandler.js");
+const { REST } = require("@discordjs/rest");
+const { Routes } = require("discord.js");
+const rpsCommand = require("./commands/rps.js");
+const leaderboardCommand= require("./commands/leaderboard.js"); 
+const showXpCommand = require("./commands/showxp.js"); 
+ 
+dotenv.config();
+const TOKEN = process.env.TOKEN;
+const CLIENT_ID = process.env.CLIENT_ID;
+const GUILD_ID = '319918985602924544';
 
 /*
     BİREYSEL ÇALIŞIRKEN FARKLI BOTLAR ÜSTÜNDEN ÇALIŞMAK MANTIKLI OLABİLİR.
@@ -20,18 +30,31 @@ const client = new discord.Client({
     ]
 });
 
+ const rest = new REST({version: '10'}).setToken(TOKEN);
+
+//slash commands
+const commands =  [rpsCommand, leaderboardCommand,showXpCommand];
+
+
 // main function
 async function main(){
     
-    // gets the essential info (ex. bot token)
-    dotenv.config();
+        try {
+            console.log('/ Command activations')
+            
+            //Path for / commands, method type: PUT
+            await rest.put(Routes.applicationGuildCommands(CLIENT_ID,GUILD_ID), {
+                body: commands
+            });
+            
+            //activates the bot
+            client.login(TOKEN);
 
-    // handles all the event files before running
-    eventHandler.handler(client);
-
-    //logs the bot in
-    client.login(process.env.TOKEN);
+        } catch(err) {
+            console.log(err);
+        }
 };
 
 main();
 
+ 
