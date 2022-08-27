@@ -1,7 +1,6 @@
 
 const discord = require("discord.js");
 const { IntentsBitField } = discord;
-const dotenv = require("dotenv");
 const eventHandler = require("./events/eventHandler.js");
 
 /*
@@ -24,7 +23,7 @@ const client = new discord.Client({
 async function main(){
     
     // gets the essential info (ex. bot token)
-    dotenv.config();
+    require("dotenv").config();
 
     // handles all the event files before running
     eventHandler.handler(client);
