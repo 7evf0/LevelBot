@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const { MongoClient } = require("mongodb");
 require("dotenv").config();
 
 //gives the connection path
@@ -7,7 +8,7 @@ const path = `mongodb+srv://${process.env.DATABASE_USERNAME}:${process.env.DATAB
 module.exports = async () => {
 
     //connecting Mongo database to the application
-    await mongoose.connect(path, {
+    /* await mongoose.connect(path, {
         useNewUrlParser: true,
         useUnifiedTopology: true,
         keepAlive: true
@@ -18,7 +19,15 @@ module.exports = async () => {
     })
     .catch((err) => {
         console.log("Error occured while connecting to database: " + err);
-    });
+    }); */
 
-    return mongoose;
+    const client = new MongoClient(path);
+    await client.connect()
+        .then(() => {
+            console.log("\nConnected to MongoDB\n");
+        })
+        .catch((err) => {
+            console.log("Error occured while connecting to database: " + err);
+        });
+
 };
