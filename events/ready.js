@@ -1,5 +1,7 @@
+
 const discord = require("discord.js");
 const databaseConnect = require("../databaseFeatures/dbConnect.js");
+
 
 // Client being ready event
 

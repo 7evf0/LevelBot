@@ -1,0 +1,19 @@
+const fs = require("fs")
+const discord = require("discord.js");
+
+
+const commands = [];
+
+
+module.exports = {
+    
+    handler(){
+        const allEvents = fs.readdirSync("./commands/").filter(file => file.endsWith(".js") && !file.startsWith("commandHandler.js"));
+
+        allEvents.forEach(async (e) => {
+            commands.push(require(`./${e}`))
+        });
+        return commands
+    },
+        
+}
