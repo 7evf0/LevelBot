@@ -2,6 +2,7 @@
 const discord = require("discord.js");
 const { IntentsBitField } = discord;
 const eventHandler = require("./events/eventHandler.js");
+const databaseConnect = require("./databaseFeatures/dbConnect.js");
 
 /*
     BİREYSEL ÇALIŞIRKEN FARKLI BOTLAR ÜSTÜNDEN ÇALIŞMAK MANTIKLI OLABİLİR.
@@ -28,8 +29,13 @@ async function main(){
     // handles all the event files before running
     eventHandler.handler(client);
 
+    // creates the connecting with database before running the bot
+    databaseConnect();
+
     //logs the bot in
     client.login(process.env.TOKEN);
+
+
 };
 
 main();
