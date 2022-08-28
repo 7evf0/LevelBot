@@ -4,6 +4,8 @@ const { IntentsBitField } = discord;
 const eventHandler = require("./events/eventHandler.js");
 const databaseConnect = require("./databaseFeatures/dbConnect.js");
 
+let mongoClient;
+
 /*
     BİREYSEL ÇALIŞIRKEN FARKLI BOTLAR ÜSTÜNDEN ÇALIŞMAK MANTIKLI OLABİLİR.
     .env dosyasındaki TOKEN yerine kendi botunun tokenını gir reisim
@@ -17,6 +19,8 @@ const client = new discord.Client({
         IntentsBitField.Flags.GuildPresences,
         IntentsBitField.Flags.GuildVoiceStates,
         IntentsBitField.Flags.GuildMessageReactions,
+        IntentsBitField.Flags.GuildMessageTyping,
+        IntentsBitField.Flags.Guilds
     ]
 });
 
@@ -29,14 +33,11 @@ async function main(){
     // handles all the event files before running
     eventHandler.handler(client);
 
-    // creates the connecting with database before running the bot
-    databaseConnect();
+    // connects the database to the application
+    mongoClient = databaseConnect();
 
-    //logs the bot in
+    // logs the bot in
     client.login(process.env.TOKEN);
-
-
 };
 
 main();
-

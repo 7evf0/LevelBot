@@ -8,18 +8,6 @@ const path = `mongodb+srv://${process.env.DATABASE_USERNAME}:${process.env.DATAB
 module.exports = async () => {
 
     //connecting Mongo database to the application
-    /* await mongoose.connect(path, {
-        useNewUrlParser: true,
-        useUnifiedTopology: true,
-        keepAlive: true
-    })
-    
-    .then(() => {
-        console.log("\nConnected to MongoDB\n");
-    })
-    .catch((err) => {
-        console.log("Error occured while connecting to database: " + err);
-    }); */
 
     const client = new MongoClient(path);
     await client.connect()
@@ -30,4 +18,5 @@ module.exports = async () => {
             console.log("Error occured while connecting to database: " + err);
         });
 
+    return client;
 };
