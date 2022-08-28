@@ -1,4 +1,4 @@
-const discord = require("discord.js");
+const {Client} = require("discord.js");
 
 // Client being ready event
 

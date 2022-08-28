@@ -5,14 +5,13 @@ const { IntentsBitField } = discord;
 const eventHandler = require("./events/eventHandler.js");
 const { REST } = require("@discordjs/rest");
 const { Routes } = require("discord.js");
-const rpsCommand = require("./commands/rps.js");
-const leaderboardCommand= require("./commands/leaderboard.js"); 
-const showXpCommand = require("./commands/showxp.js"); 
- 
+const commandHandler = require('./commands/commandHandler')
+
+
 dotenv.config();
 const TOKEN = process.env.TOKEN;
 const CLIENT_ID = process.env.CLIENT_ID;
-const GUILD_ID = '319918985602924544';
+const GUILD_ID = process.env.GUILD_ID;
 
 /*
     BİREYSEL ÇALIŞIRKEN FARKLI BOTLAR ÜSTÜNDEN ÇALIŞMAK MANTIKLI OLABİLİR.
@@ -30,10 +29,11 @@ const client = new discord.Client({
     ]
 });
 
+eventHandler.handler(client);
+
  const rest = new REST({version: '10'}).setToken(TOKEN);
 
-//slash commands
-const commands =  [rpsCommand, leaderboardCommand,showXpCommand];
+
 
 
 // main function
@@ -44,7 +44,7 @@ async function main(){
             
             //Path for / commands, method type: PUT
             await rest.put(Routes.applicationGuildCommands(CLIENT_ID,GUILD_ID), {
-                body: commands
+                body: commandHandler.handler()
             });
             
             //activates the bot
