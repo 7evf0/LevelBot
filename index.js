@@ -1,5 +1,6 @@
 
 const discord = require("discord.js");
+
 const dotenv = require("dotenv");
 const { IntentsBitField } = discord;
 const eventHandler = require("./events/eventHandler.js");
@@ -12,6 +13,10 @@ dotenv.config();
 const TOKEN = process.env.TOKEN;
 const CLIENT_ID = process.env.CLIENT_ID;
 const GUILD_ID = process.env.GUILD_ID;
+const { IntentsBitField } = discord;
+const eventHandler = require("./events/eventHandler.js");
+const databaseConnect = require("./databaseFeatures/dbConnect.js");
+let mongoClient;
 
 /*
     BİREYSEL ÇALIŞIRKEN FARKLI BOTLAR ÜSTÜNDEN ÇALIŞMAK MANTIKLI OLABİLİR.
@@ -26,6 +31,8 @@ const client = new discord.Client({
         IntentsBitField.Flags.GuildPresences,
         IntentsBitField.Flags.GuildVoiceStates,
         IntentsBitField.Flags.GuildMessageReactions,
+        IntentsBitField.Flags.GuildMessageTyping,
+        IntentsBitField.Flags.Guilds
     ]
 });
 
@@ -39,6 +46,7 @@ eventHandler.handler(client);
 // main function
 async function main(){
     
+
         try {
             console.log('/ Command activations')
             
@@ -55,6 +63,22 @@ async function main(){
         }
 };
 
-main();
+
 
  
+
+    // gets the essential info (ex. bot token)
+    require("dotenv").config();
+
+    // handles all the event files before running
+    eventHandler.handler(client);
+
+    // connects the database to the application
+    mongoClient = databaseConnect();
+
+    // logs the bot in
+    client.login(process.env.TOKEN);
+};
+
+main();
+

@@ -1,4 +1,7 @@
-const {Client} = require("discord.js");
+
+const discord = require("discord.js");
+const databaseConnect = require("../databaseFeatures/dbConnect.js");
+
 
 // Client being ready event
 
@@ -11,8 +14,12 @@ module.exports = {
     async event(client){
         
         client.on("ready", () => {
+
             console.log(`The ${client.user.username} has logged in`);
+
         });
 
-    }
+    },
+
+    
 }
