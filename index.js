@@ -9,6 +9,8 @@ const { Routes } = require("discord.js");
 const commandHandler = require('./commands/commandHandler')
 const databaseConnect = require("./databaseFeatures/dbConnect.js");
 
+
+
 dotenv.config();
 const TOKEN = process.env.TOKEN;
 const CLIENT_ID = process.env.CLIENT_ID;
