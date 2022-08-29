@@ -8,12 +8,11 @@ module.exports = {
      * @param {Collection} collection 
      */
 
-    async deleteData(collection, filterSchema){
+    async updateData(collection, filterSchema, attribute){
 
-        await collection.deleteMany(filterSchema)
-            .catch((err) => {
-                console.log("Error occured while updating data on database: " + err);
-            });
+        const filter = await collection.findOne(filterSchema);
+        
+        return filter[attribute];
 
     }
 }

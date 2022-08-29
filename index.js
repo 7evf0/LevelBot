@@ -8,6 +8,8 @@ const { REST } = require("@discordjs/rest");
 const { Routes } = require("discord.js");
 const commandHandler = require('./commands/commandHandler')
 const databaseConnect = require("./databaseFeatures/dbConnect.js");
+const {coll} = require("./databaseFeatures/dbCollection.js");
+const { MongoClient } = require("mongodb");
 
 
 
@@ -18,7 +20,7 @@ const GUILD_ID = process.env.GUILD_ID;
 
 
 
-let mongoClient;
+let mongoCollection;
 
 /*
     BİREYSEL ÇALIŞIRKEN FARKLI BOTLAR ÜSTÜNDEN ÇALIŞMAK MANTIKLI OLABİLİR.
@@ -55,7 +57,9 @@ async function main() {
         eventHandler.handler(client);
         
         // connects the database to the application
-        mongoClient = databaseConnect();
+        databaseConnect().then((mongoClient) => {
+            mongoCollection = coll(mongoClient);
+        });
 
         //Path for / commands, method type: PUT
         const rest = new REST({ version: '10' }).setToken(TOKEN);
