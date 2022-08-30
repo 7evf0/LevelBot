@@ -1,6 +1,6 @@
 
 const discord = require("discord.js");
-const {mongoClient } = require("../index.js")
+
 const members = require("../features/member_counter")
 
 // Client being ready event
@@ -11,7 +11,7 @@ module.exports = {
      * 
      * @param {discord.Client} client 
      */
-    async event(client){
+    async event(client, mongoClient){
         
         client.on("ready", () => {
 

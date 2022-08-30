@@ -11,6 +11,7 @@ const databaseConnect = require("./databaseFeatures/dbConnect.js");
 
 
 dotenv.config();
+let mongoClient;
 const TOKEN = process.env.TOKEN;
 const CLIENT_ID = process.env.CLIENT_ID;
 const GUILD_ID = process.env.GUILD_ID;
@@ -34,20 +35,20 @@ const client = new discord.Client({
 });
 
 
-let mongoClient;
-
-
-
 // main function
 async function main() {
 
     try {
         console.log('/ Command activations');
 
-          // connects the database to the application
-          await databaseConnect().then((client) => {
+        // connects the database to the application
+        await databaseConnect().then((client) => {
             mongoClient = client;
         });
+
+
+        // handles all the event files before running
+        eventHandler.handler(client, mongoClient);
 
         //Path for / commands, method type: PUT
         const rest = new REST({ version: '10' }).setToken(TOKEN);
@@ -63,19 +64,7 @@ async function main() {
         console.log(err);
     }
 }
-
-
-main().then(() => {
-
-
-        module.exports = {
-            mongoClient
-        }
-
-       // handles all the event files before running
-        eventHandler.handler(client);
-});
-
+main();
 
 
 

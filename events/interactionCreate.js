@@ -1,6 +1,6 @@
 const discord = require("discord.js");
 const {EmbedBuilder , ActionRowBuilder, ButtonBuilder, ButtonStyle, ComponentType} = discord;
-const {readData} = require("../databaseFeatures/dbReadData.js");
+const {MongoClient} = require("mongodb")
 
 // Client interactionCreate event
 
@@ -9,9 +9,10 @@ module.exports = {
     /**
      * 
      * @param {discord.Client} client 
+     * @param {MongoClient} mongoClient
      */
 
-    async event(client){
+    async event(client, mongoClient){
         
         client.on("interactionCreate", async (interaction) => {
 
