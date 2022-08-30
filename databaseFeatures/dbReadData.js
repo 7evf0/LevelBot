@@ -8,9 +8,9 @@ module.exports = {
      * @param {Collection} collection 
      */
 
-    async updateData(collection, filterSchema, attribute){
+    async readData(collection, userID, attribute){
 
-        const filter = await collection.findOne(filterSchema);
+        const filter = await collection.findOne({"userID": userID});
         
         return filter[attribute];
 

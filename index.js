@@ -20,8 +20,6 @@ const GUILD_ID = process.env.GUILD_ID;
 
 
 
-let mongoCollection;
-
 /*
     BİREYSEL ÇALIŞIRKEN FARKLI BOTLAR ÜSTÜNDEN ÇALIŞMAK MANTIKLI OLABİLİR.
     .env dosyasındaki TOKEN yerine kendi botunun tokenını gir reisim
@@ -58,7 +56,7 @@ async function main() {
         
         // connects the database to the application
         databaseConnect().then((mongoClient) => {
-            mongoCollection = coll(mongoClient);
+           global.mongoCollection = coll(mongoClient);
         });
 
         //Path for / commands, method type: PUT

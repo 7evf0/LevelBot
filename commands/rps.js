@@ -2,7 +2,7 @@ const { SlashCommandBuilder } = require('discord.js');
 
 module.exports = {
     ...new SlashCommandBuilder()
-        .setName('rpy')
+        .setName('rps')
         .setDescription('rock paper scissors game')
         .addUserOption(option => {
            
@@ -37,7 +37,7 @@ module.exports = {
         .addIntegerOption(option => {
             option
                 return option
-                .setName('bit')
+                .setName('bid')
                 .setDescription('xp to be gambled')
                 .setRequired(true)
         })
