@@ -1,6 +1,6 @@
 
 const discord = require("discord.js");
-const databaseConnect = require("../databaseFeatures/dbConnect.js");
+const {mongoClient } = require("../index.js")
 const members = require("../features/member_counter")
 
 // Client being ready event
@@ -16,7 +16,7 @@ module.exports = {
         client.on("ready", () => {
 
             console.log(`The ${client.user.username} has logged in`);
-            members(client);
+            members(client,mongoClient);
             
         });
 

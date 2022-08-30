@@ -9,7 +9,7 @@ module.exports = {
      */
 
     async readData(mongoClient, userID, attribute){
-
+        
         const collection = mongoClient.db("LevelBotDatabase").collection("users");
         let filter;
 
@@ -17,15 +17,16 @@ module.exports = {
             .then((res) => {
                 if(res != null){
                     filter = res;
+                    return filter[attribute];
                 }
                 else{
-                    console.log("There is no such user!");
+                    console.log("There is no such user in database!");
                     return false;
                 }
                 
             })
         
-        return filter[attribute];
+        
 
     }
 }

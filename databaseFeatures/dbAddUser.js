@@ -11,7 +11,8 @@ module.exports = {
     async addData(mongoClient, schema){
 
         try {
-            await collection.insertOne(schema);
+            const collection = mongoClient.db("LevelBotDatabase").collection("users");
+            collection.insertOne(schema);
         } catch (error) {
             console.log("Error occured while adding data to database: " + error);
         }

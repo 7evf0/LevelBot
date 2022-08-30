@@ -12,6 +12,7 @@ module.exports = {
 
         const collection = mongoClient.db("LevelBotDatabase").collection("users");
         
+        
         await collection.deleteMany(filterSchema)
             .catch((err) => {
                 console.log("Error occured while updating data on database: " + err);
