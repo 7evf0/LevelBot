@@ -8,16 +8,13 @@ const { REST } = require("@discordjs/rest");
 const { Routes } = require("discord.js");
 const commandHandler = require('./commands/commandHandler')
 const databaseConnect = require("./databaseFeatures/dbConnect.js");
-const {coll} = require("./databaseFeatures/dbCollection.js");
 const { MongoClient } = require("mongodb");
-
-
+const {readData} = require("./databaseFeatures/dbReadData.js");
 
 dotenv.config();
 const TOKEN = process.env.TOKEN;
 const CLIENT_ID = process.env.CLIENT_ID;
 const GUILD_ID = process.env.GUILD_ID;
-
 
 
 /*
@@ -39,7 +36,7 @@ const client = new discord.Client({
 });
 
 
-
+let mongoClient;
 
 
 
@@ -55,9 +52,10 @@ async function main() {
         eventHandler.handler(client);
         
         // connects the database to the application
-        databaseConnect().then((mongoClient) => {
-           global.mongoCollection = coll(mongoClient);
+        await databaseConnect().then((client) => {
+           mongoClient = client;
         });
+
 
         //Path for / commands, method type: PUT
         const rest = new REST({ version: '10' }).setToken(TOKEN);
@@ -65,7 +63,9 @@ async function main() {
             body: commandHandler.handler()
         });
 
+       
         //activates the bot
+
         client.login(TOKEN);
 
     } catch (err) {

@@ -9,6 +9,7 @@ module.exports = {
     /**
      * 
      * @param {discord.Client} client 
+     * @param {}
      */
 
     async event(client){
@@ -25,7 +26,7 @@ module.exports = {
 
                 // check if the base conditions are satisfied like, is there enough XP?
 
-                const xp = 
+                
 
                 // embedded message
 

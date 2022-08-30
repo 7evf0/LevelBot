@@ -5,14 +5,16 @@ module.exports = {
 
     /**
      *  the "mongoClient" here is the Mongo Client that is formed while connecting the app to the database, it is not the bot client itself.
-     * @param {Collection} collection 
+     * @param {MongoClient} mongoClient 
      */
 
-    async updateData(collection, filterSchema, newSchema){
+    async updateData(mongoClient, filterSchema, newSchema){
 
         const newValues = {
             $set: newSchema
         };
+
+        const collection = mongoClient.db("LevelBotDatabase").collection("users");
 
         await collection.updateMany(filterSchema, newValues)
             .catch((err) => {
