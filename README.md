@@ -21,7 +21,7 @@ Prototype of a default level bot
 			aktarmak gerekiyor. Örnek:
 
 			{
-				"userID": 123456,
+				"userID": "123456",
 				"XP": 0,
 				"Level": 1
 			}

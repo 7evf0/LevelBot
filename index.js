@@ -47,16 +47,15 @@ async function main() {
     try {
         console.log('/ Command activations')
         
-        
         // handles all the event files before running
         eventHandler.handler(client);
-        
+ 
         // connects the database to the application
         await databaseConnect().then((client) => {
            mongoClient = client;
         });
 
-
+        
         //Path for / commands, method type: PUT
         const rest = new REST({ version: '10' }).setToken(TOKEN);
         await rest.put(Routes.applicationGuildCommands(CLIENT_ID, GUILD_ID), {
@@ -65,8 +64,9 @@ async function main() {
 
        
         //activates the bot
-
         client.login(TOKEN);
+
+         
 
     } catch (err) {
         console.log(err);
@@ -75,3 +75,10 @@ async function main() {
 
 main();
 
+
+
+
+//exporting mongoClient
+module.exports = {
+    mongoClient
+}

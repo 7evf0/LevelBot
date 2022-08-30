@@ -9,7 +9,6 @@ module.exports = {
     /**
      * 
      * @param {discord.Client} client 
-     * @param {}
      */
 
     async event(client){
@@ -33,7 +32,8 @@ module.exports = {
                 const embedMessage = new EmbedBuilder()
                     .setTitle("Rock Paper Scissors Duel")
                     .setColor("Aqua")
-                    .setDescription(`${interaction.user} has challenged ${user} by putting ${bid} XP for total ${2*bid} XP's !!`);
+                    .setDescription(`${interaction.user} has challenged ${user} by putting ${bid} XP for total ${2*bid} XP's !!`)
+                    
 
                 // all buttons including "decline" button which the challenged user can be willing to decline the duel
 
