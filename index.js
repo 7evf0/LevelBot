@@ -8,7 +8,8 @@ const { REST } = require("@discordjs/rest");
 const { Routes } = require("discord.js");
 const commandHandler = require('./commands/commandHandler')
 const databaseConnect = require("./databaseFeatures/dbConnect.js");
-
+const {deleteData} = require("./databaseFeatures/dbDeleteUser.js");
+const checkDatabase = require("./features/member_counter.js");
 
 dotenv.config();
 let mongoClient;
@@ -30,7 +31,8 @@ const client = new discord.Client({
         IntentsBitField.Flags.GuildVoiceStates,
         IntentsBitField.Flags.GuildMessageReactions,
         IntentsBitField.Flags.GuildMessageTyping,
-        IntentsBitField.Flags.Guilds
+        IntentsBitField.Flags.Guilds,
+
     ]
 });
 
@@ -46,9 +48,11 @@ async function main() {
             mongoClient = client;
         });
 
-
         // handles all the event files before running
         eventHandler.handler(client, mongoClient);
+
+        //activates the bot
+        await client.login(TOKEN);
 
         //Path for / commands, method type: PUT
         const rest = new REST({ version: '10' }).setToken(TOKEN);
@@ -57,13 +61,13 @@ async function main() {
         });
 
 
-        //activates the bot
-        client.login(TOKEN);
+        
 
     } catch (err) {
         console.log(err);
     }
 }
+
 main();
 
 

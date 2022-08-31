@@ -8,25 +8,20 @@ module.exports = {
      * @param {MongoClient} mongoClient 
      */
 
-    async readData(mongoClient, userID, attribute){
+    async readData(mongoClient, filterSchema){
         
         const collection = mongoClient.db("LevelBotDatabase").collection("users");
-        let filter;
+        
+        // returns all users with specific filtration
 
-        await collection.findOne({"userID": userID})
-            .then((res) => {
-                if(res != null){
-                    filter = res;
-                    return filter[attribute];
-                }
-                else{
-                    console.log("There is no such user in database!");
-                    return false;
-                }
-                
-            })
-        
-        
+        const all = await collection.find(filterSchema).toArray();
+        if(all != null){
+            return all;
+        }
+        else{
+            console.log("There is no such user with that filtration");
+            return false;
+        } 
 
     }
 }
