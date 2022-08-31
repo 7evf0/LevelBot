@@ -18,23 +18,22 @@ module.exports = async (client, mongoClient) => {
     const guild = client.guilds.cache.get(process.env.GUILD_ID);
     guild.members.fetch().then(members => {
         //iterating over each member whether is it added to database
-
-
-        members.forEach(member => {
-            console.log(member.user.username);
-            readDatabase.readData(mongoClient, {"userID": member.user.id}).then((data) => {
-                if (data.length === 0) {
-                    console.log("There is no such user with this filtration");
-                    addDatabase.addData(mongoClient, {
-                        "userID": member.user.id,
-                        "XP": 0,
-                        "Level": 1
-                    })
+        setInterval(() => {
+            members.forEach(member => {
+                if (!member.user.bot) {
+                    readDatabase.readData(mongoClient, { "userID": member.user.id }).then((data) => {
+                        if (data.length === 0) {
+                            console.log("There is no such user with this filtration");
+                            addDatabase.addData(mongoClient, {
+                                "userID": member.user.id,
+                                "XP": 0,
+                                "Level": 1
+                            })
+                        }
+                    });
                 }
-            })
-            
-        })
-        console.log("\n");
+            });
+        }, 1000 * 60  * 10);
 
     })
 }
