@@ -1,7 +1,8 @@
 
 const discord = require("discord.js");
 
-const members = require("../features/member_counter")
+const membersAdd = require("../features/member_checkerAdd")
+const membersDelete = require("../features/member_checkerDelete")
 
 // Client being ready event
 
@@ -16,8 +17,8 @@ module.exports = {
         client.on("ready", () => {
 
             console.log(`The ${client.user.username} has logged in`);
-            members(client,mongoClient);
-            
+            membersAdd(client,mongoClient);
+            membersDelete(client, mongoClient);
         });
 
     },

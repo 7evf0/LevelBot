@@ -9,7 +9,7 @@ const { Routes } = require("discord.js");
 const commandHandler = require('./commands/commandHandler')
 const databaseConnect = require("./databaseFeatures/dbConnect.js");
 const {deleteData} = require("./databaseFeatures/dbDeleteUser.js");
-const checkDatabase = require("./features/member_counter.js");
+const checkDatabase = require("./features/member_checkerAdd.js");
 
 dotenv.config();
 let mongoClient;
