@@ -1,6 +1,6 @@
 
 const discord = require("discord.js");
-const addDatabase = require("../databaseFeatures/dbAddUser.js")
+const addDatabase = require("../../databaseFeatures/dbAddUser.js")
 const dotenv = require("dotenv");
 dotenv.config()
 // this program executes after user joins the server

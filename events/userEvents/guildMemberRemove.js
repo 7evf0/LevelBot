@@ -1,6 +1,6 @@
 
 const discord = require("discord.js");
-const deleteDatabase = require("../databaseFeatures/dbDeleteUser.js")
+const deleteDatabase = require("../../databaseFeatures/dbDeleteUser.js")
 
 
 // this program executes after user joins the server
