@@ -1,7 +1,7 @@
 const discord = require("discord.js");
 const {EmbedBuilder , ActionRowBuilder, ButtonBuilder, ButtonStyle, ComponentType} = discord;
 const {MongoClient} = require("mongodb")
-const {readData} = require("../databaseFeatures/dbReadData.js");
+const {readData} = require("../../databaseFeatures/dbReadData.js");
 
 // Client interactionCreate event
 
@@ -95,6 +95,8 @@ module.exports = {
                     components: [actionRow]
                 });
 
+                console.log("Replied");
+
             // "msg" variable stores the current message
 
                 const msg = await interaction.fetchReply();
@@ -108,8 +110,23 @@ module.exports = {
                 });
 
             // "collect" event on collector
-                collector.on("collect", (button) => {
+                
+            console.log("SBC");
 
+                collector.on("collect", async (button) => {
+
+                // challenged user declining the offer
+                    if(button.customId === "decline"){
+                        console.log("Entered!\n\n");
+                        const declinedEmbed = new EmbedBuilder()
+                            .setAuthor({ name: "⛔Challenge Has Been Declined"})
+                            .setDescription(`${user} has declined the Rock Paper Scissors Challenge!`);
+
+                        await interaction.editReply({
+                            embeds: [declinedEmbed]
+                        }); 
+
+                    }
                 });
             }
         });
