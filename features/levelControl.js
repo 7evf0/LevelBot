@@ -9,16 +9,18 @@ const {updateData} = require("../databaseFeatures/dbUpdateUser")
 module.exports = {
     async levelControl(mongoClient, userID){
         //xp of the user
-        let xp = readData(mongoClient, {
+        let xp;
+        let level;
+        readData(mongoClient, {
             "userID": userID
         }).then(datas => {
-            datas[0].XP;
+            xp = datas[0].XP;
         })
         //level of the user
-        let level = readData(mongoClient, {
+        readData(mongoClient, {
             "userID": userID
         }).then(datas => {
-            datas[0].Level;
+            level = datas[0].Level;
         })
         
         //updating the level of the user
