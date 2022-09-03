@@ -10,13 +10,16 @@ const {levelControl} = require("./levelControl")
 module.exports = {
 
     async addXP(mongoClient, userID, amount){
-        const xp = readData(mongoClient, {
+        let xp;
+        
+        await readData(mongoClient, {
             "userID": userID
         }).then(datas => {
             xp = datas[0].XP;
-        })
+        });
+
         console.log(xp);
-        updateData(mongoClient, {
+        await updateData(mongoClient, {
             "userID": userID
         },
         {

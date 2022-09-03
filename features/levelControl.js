@@ -11,13 +11,15 @@ module.exports = {
         //xp of the user
         let xp;
         let level;
-        readData(mongoClient, {
+
+        await readData(mongoClient, {
             "userID": userID
         }).then(datas => {
             xp = datas[0].XP;
-        })
+        });
+        
         //level of the user
-        readData(mongoClient, {
+        await readData(mongoClient, {
             "userID": userID
         }).then(datas => {
             level = datas[0].Level;
