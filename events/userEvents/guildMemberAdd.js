@@ -17,7 +17,7 @@ module.exports = {
         client.on("guildMemberAdd", (member) => {
             const welcomer = new discord.WebhookClient({
                 id: "1014560902839799860",
-                token: process.env.TOKEN
+                token: 'p0G_Wguy0mknxrTVroyvGfJCqWv-MiNKkW2Su0hQq6pQ-iWWAmznXU2zlViyVdTymYZL'
             })
             
             addDatabase.addData(mongoClient, {
@@ -28,12 +28,11 @@ module.exports = {
             const welcome = new discord.EmbedBuilder()
                 .setTitle('Welcome to our server!')
                 .setColor('Aqua')
-                .setImage(member.avatarURL())
+                .setImage(member.displayAvatarURL())
                 .setDescription(`${member.user.username} joined the server!`)
             welcomer.send({embeds: [welcome]});
         });
 
     },
-
 
 }

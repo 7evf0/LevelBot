@@ -3,7 +3,6 @@ const readDatabase = require("../databaseFeatures/dbReadData")
 const deleteDatabase = require("../databaseFeatures/dbDeleteUser")
 const { MongoClient } = require("mongodb");
 const { set } = require("mongoose");
-
 require("dotenv").config();
 
 
