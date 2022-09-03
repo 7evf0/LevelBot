@@ -14,22 +14,27 @@ module.exports = {
     async event(client, mongoClient){
         
         client.on("voiceStateUpdate", async (oldState, newState) => {
-            let newUserChannel = newState.channel;
-            let oldUserChannel = oldState.channel
-            let {id} = oldState;
-
-            if(oldUserChannel === null && newUserChannel !== null){
-                //the time user joins the voice channel
-                voiceStates[id] = new Date();
+            try {
+                let newUserChannel = newState.channel;
+                let oldUserChannel = oldState.channel
+                let {id} = oldState;
+    
+                if(oldUserChannel === null && newUserChannel !== null){
+                    //the time user joins the voice channel
+                    voiceStates[id] = new Date();
+                }
+                else if(oldUserChannel !== null && newUserChannel === null){
+                    //the time user leaves the voice channel
+                    let leaveTime = new Date();
+                    let joinTime = voiceStates[id];
+    
+                    //time difference
+                    let timeDifference = leaveTime.getTime() - joinTime.getTime();
+                    addXP(mongoClient, id, timeDifference);
+                }
             }
-            else if(oldUserChannel !== null && newUserChannel === null){
-                //the time user leaves the voice channel
-                let leaveTime = new Date();
-                let joinTime = voiceStates[id];
-
-                //time difference
-                let timeDifference = leaveTime.getTime() - joinTime.getTime();
-                addXP(mongoClient, id, timeDifference);
+            catch(err){
+                console.log('To activate code user must leave and connect a voice channel')
             }
            
         })

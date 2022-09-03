@@ -11,6 +11,7 @@ module.exports = {
                 .setName('challenge-user')
                 .setDescription('choose a user to be challenged')
                 .setRequired(true)
+                
         })
         .addStringOption(option => {
 
