@@ -1,4 +1,7 @@
 const { SlashCommandBuilder } = require('discord.js');
+const {readData} = require("../databaseFeatures/dbReadData.js");
+const {EmbedBuilder , ActionRowBuilder, ButtonBuilder, ButtonStyle, ComponentType} = require("discord.js");
+const {updateData} = require("../databaseFeatures/dbUpdateUser.js");
 
 module.exports = {
     ...new SlashCommandBuilder()
@@ -44,7 +47,9 @@ module.exports = {
 
 }
 
-module.exports.code = async (interaction) => {
+// SCRIPT
+
+module.exports.code = async (mongoClient, interaction) => {
         
     // all information that are provided by slash command
 

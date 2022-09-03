@@ -1,8 +1,5 @@
 const discord = require("discord.js");
-const {EmbedBuilder , ActionRowBuilder, ButtonBuilder, ButtonStyle, ComponentType} = discord;
 const {MongoClient} = require("mongodb")
-const {readData} = require("../../databaseFeatures/dbReadData.js");
-const {updateData} = require("../../databaseFeatures/dbUpdateUser.js");
 const {codeHandler} = require("../../commands/commandHandler.js");
 
 // Client interactionCreate event
@@ -17,6 +14,7 @@ module.exports = {
 
     async event(client, mongoClient){
         
+    // collects every slash command script into an object
         const commandCodes = codeHandler();
 
         client.on("interactionCreate", async (interaction) => {
@@ -24,7 +22,16 @@ module.exports = {
             if(interaction.isCommand()){
 
                 const commandName = interaction.commandName;
-                commandCodes[commandName];
+
+            // executes the specific script
+                try {
+                
+                    commandCodes[commandName](mongoClient, interaction);
+
+                } catch (error) {
+                    console.log("Error occured while accessing the code: " + error);
+                }
+                
 
             }
 

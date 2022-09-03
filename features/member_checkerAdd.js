@@ -30,10 +30,13 @@ module.exports = async (client, mongoClient) => {
                                 "Level": 1
                             })
                         }
+                        else{
+                            console.log("User exists!");
+                        }
                     });
                 }
             });
-        }, 1000 * 60 * 10);
+        }, 1000 * 60);
 
     })
 }

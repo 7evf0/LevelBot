@@ -24,11 +24,9 @@ module.exports = {
 
             const commName = e.replace(".js","");
 
-            console.log(commandCodes);
-            commandCodes = {...commandCodes , "" : require(`./${e}`).code};
-            console.log(commandCodes + "\n");
+            commandCodes[commName] = require(`./${e}`).code;
         });
-        
+
         return commandCodes;
     },
         
