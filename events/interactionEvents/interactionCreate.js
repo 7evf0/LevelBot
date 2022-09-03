@@ -1,7 +1,7 @@
 const discord = require("discord.js");
 const {EmbedBuilder , ActionRowBuilder, ButtonBuilder, ButtonStyle, ComponentType} = discord;
 const {MongoClient} = require("mongodb")
-const {readData} = require("../databaseFeatures/dbReadData.js");
+const {readData} = require("../../databaseFeatures/dbReadData");
 
 // Client interactionCreate event
 

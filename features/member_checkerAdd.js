@@ -1,6 +1,6 @@
 const discord = require("discord.js")
-const readDatabase = require("../databaseFeatures/dbReadData")
-const addDatabase = require("../databaseFeatures/dbAddUser")
+const {readData} = require("../databaseFeatures/dbReadData")
+const {addData} = require("../databaseFeatures/dbAddUser")
 const { MongoClient } = require("mongodb");
 
 require("dotenv").config();
@@ -21,10 +21,10 @@ module.exports = async (client, mongoClient) => {
         setInterval(() => {
             members.forEach(member => {
                 if (!member.user.bot) {
-                    readDatabase.readData(mongoClient, { "userID": member.user.id }).then((data) => {
+                    readData(mongoClient, { "userID": member.user.id }).then((data) => {
                         if (data.length === 0) {
-                            console.log("There is no such user with this filtration");
-                            addDatabase.addData(mongoClient, {
+                            console.log("There is no such user with this filtration " + data);
+                            addData(mongoClient, {
                                 "userID": member.user.id,
                                 "XP": 0,
                                 "Level": 1
