@@ -8,11 +8,7 @@ const { REST } = require("@discordjs/rest");
 const { Routes } = require("discord.js");
 const commandHandler = require('./commands/commandHandler')
 const databaseConnect = require("./databaseFeatures/dbConnect.js");
-const {deleteData} = require("./databaseFeatures/dbDeleteUser.js");
-const checkDatabase = require("./features/member_checkerAdd.js");
 
-const {readData} = require("./databaseFeatures/dbReadData.js");
-const {EmbedBuilder , ActionRowBuilder, ButtonBuilder, ButtonStyle, ComponentType} = discord;
 
 dotenv.config();
 let mongoClient;
