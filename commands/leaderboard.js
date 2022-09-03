@@ -5,3 +5,5 @@ module.exports = {
         .setName('xp-leaderboard')
         .setDescription('xp leaderboard')
 }
+
+module.exports.code = () => {};

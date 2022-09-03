@@ -11,6 +11,9 @@ const databaseConnect = require("./databaseFeatures/dbConnect.js");
 const {deleteData} = require("./databaseFeatures/dbDeleteUser.js");
 const checkDatabase = require("./features/member_checkerAdd.js");
 
+const {readData} = require("./databaseFeatures/dbReadData.js");
+const {EmbedBuilder , ActionRowBuilder, ButtonBuilder, ButtonStyle, ComponentType} = discord;
+
 dotenv.config();
 let mongoClient;
 const TOKEN = process.env.TOKEN;
@@ -59,9 +62,6 @@ async function main() {
         await rest.put(Routes.applicationGuildCommands(CLIENT_ID, GUILD_ID), {
             body: commandHandler.handler()
         });
-
-
-        
 
     } catch (err) {
         console.log(err);

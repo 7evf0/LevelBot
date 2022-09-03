@@ -15,9 +15,11 @@ module.exports = {
         // returns all users with specific filtration
 
         const all = await collection.find(filterSchema).toArray();
+
         if(all != null){
             return all;
         }
+
         else{
             console.log("There is no such user with that filtration");
             return false;

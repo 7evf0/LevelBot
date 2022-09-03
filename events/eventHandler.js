@@ -21,10 +21,9 @@ module.exports = {
             
             //iterating over javascript event files
             events.forEach(async (event) => {
-                events.forEach( async event => {
-                    //executing the event
-                    await require(`./${eventFiles}/${event}`).event(client, mongoClient);
-                })
+                
+                await require(`./${eventFiles}/${event}`).event(client, mongoClient);
+                
             });
         })
 

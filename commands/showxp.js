@@ -5,3 +5,5 @@ module.exports = {
         .setName('xp')
         .setDescription('users xp')
 }
+
+module.exports.code = () => {};
