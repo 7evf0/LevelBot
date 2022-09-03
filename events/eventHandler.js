@@ -18,14 +18,14 @@ module.exports = {
         allEvents.forEach((eventFiles) => {
             //getting type of the event
             let events = fs.readdirSync(`./events/${eventFiles}`)
-            
+
             //iterating over javascript event files
-            events.forEach(async (event) => {
-                events.forEach( async event => {
-                    //executing the event
-                    await require(`./${eventFiles}/${event}`).event(client, mongoClient);
-                })
-            });
+
+            events.forEach(async event => {
+                //executing the event
+                await require(`./${eventFiles}/${event}`).event(client, mongoClient);
+            })
+
         })
 
 
