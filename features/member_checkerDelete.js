@@ -1,6 +1,6 @@
 const discord = require("discord.js")
-const readDatabase = require("../databaseFeatures/dbReadData")
-const deleteDatabase = require("../databaseFeatures/dbDeleteUser")
+const {readData} = require("../databaseFeatures/dbReadData")
+const {deleteData} = require("../databaseFeatures/dbDeleteUser")
 const { MongoClient } = require("mongodb");
 const { set } = require("mongoose");
 require("dotenv").config();
@@ -17,7 +17,7 @@ module.exports = async (client, mongoClient) => {
     //discord server id
     const guild = client.guilds.cache.get(process.env.GUILD_ID);
     //all datas in the database
-    const allDatas = readDatabase.readData(mongoClient, {});
+    const allDatas = readData(mongoClient, {});
 
     allDatas.then(datas => {
         setInterval(() => {
@@ -35,7 +35,7 @@ module.exports = async (client, mongoClient) => {
                 })
                 //if isContain false, below code deletes the data in the database
                 if (!isContain) {
-                    deleteDatabase.deleteData(mongoClient, {
+                    deleteData(mongoClient, {
                         "userID": data.userID
                     })
                 }
