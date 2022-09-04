@@ -15,6 +15,6 @@ module.exports = {
             commands.push(require(`./${e}`).command)
         });
         return commands
-    }
+    },
         
 }

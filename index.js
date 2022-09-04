@@ -8,6 +8,7 @@ const { REST } = require("@discordjs/rest");
 const { Routes } = require("discord.js");
 const commandHandler = require('./commands/commandHandler')
 const databaseConnect = require("./databaseFeatures/dbConnect.js");
+const { mongo } = require("mongoose");
 
 
 dotenv.config();
