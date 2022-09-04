@@ -31,7 +31,7 @@ module.exports = {
                 "userID": userID
             },
             {
-                "Level": level
+                "Level": Math.floor(xp / 100)
             })
         }
     }
