@@ -46,7 +46,7 @@ module.exports = {
         const inviterXP = inviterUserArray[0]["XP"];
 
         //bid cannot be less than zero
-        if (bid <=0) {
+        if (bid < 0) {
 
             interaction.reply({
                 content: "Bid cannot be less than zero",
@@ -242,12 +242,11 @@ module.exports = {
 
         collector.on("ignore", async (button) => {
 
-            button.deferUpdate();
-            // ?????? (interaction)
+            
 
             if (user !== button.user) {
 
-                await interaction.followUp({
+                await button.reply({
                     content: "Only the user who has been challenged to the duel, can press the buttons!",
                     ephemeral: true
                 });
@@ -256,13 +255,12 @@ module.exports = {
 
             else {
 
-                await interaction.followUp({
+                await button.reply({
                     content: "You do not have enough XP to attend this Rock Paper Scissors Duel!",
                     ephemeral: true
                 });
 
             }
-
 
         });
 
