@@ -14,7 +14,7 @@ module.exports = {
 
         const user = interaction.options.getUser("challenge-user");
         const choice = interaction.options.getString("rock-paper-scissors");
-        console.log(choice);
+        console.log(user);
         const bid = interaction.options.getNumber("bid");
 
         // check if the base conditions are satisfied like, is there enough XP?
@@ -25,7 +25,25 @@ module.exports = {
             console.log("There is a duplication issue in database. Check it out");
             return;
         }
-
+        
+        
+        if (interaction.user.id === user.id) {
+            interaction.reply({
+                content: "Sorry, you cannot start a Rock Paper Scissors duel against yourself!",
+                ephemeral: true
+            });
+            return;
+        }
+        
+        
+        if (user.bot) {
+            interaction.reply({
+                content: "Sorry, you cannot choose a bot to start a Rock Paper Scissors Duel!",
+                ephemeral: true
+            });
+            return;
+        }
+        
         const inviterXP = inviterUserArray[0]["XP"];
 
         if (inviterXP < bid) {

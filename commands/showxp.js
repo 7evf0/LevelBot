@@ -6,4 +6,4 @@ module.exports = {
         .setDescription('users xp')
 }
 
-module.exports.code = () => {};
+

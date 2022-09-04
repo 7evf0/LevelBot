@@ -1,6 +1,6 @@
 const discord = require("discord.js");
 const {MongoClient} = require("mongodb")
-const {rpsGame} = require("../../games/rpsGame");
+const {rpsGame} = require("../../eventsForSlashCommands/rpsGame");
 
 // Client interactionCreate event
 
