@@ -1,9 +1,8 @@
 const { SlashCommandBuilder } = require('discord.js');
 
 module.exports = {
-    ...new SlashCommandBuilder()
+    command: new SlashCommandBuilder()
         .setName('xp-leaderboard')
         .setDescription('xp leaderboard')
 }
 
-module.exports.code = () => {};

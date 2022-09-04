@@ -1,9 +1,9 @@
 const { SlashCommandBuilder } = require('discord.js');
 
 module.exports = {
-    ...new SlashCommandBuilder()
+    command: new SlashCommandBuilder()
         .setName('xp')
         .setDescription('users xp')
 }
 
-module.exports.code = () => {};
+
