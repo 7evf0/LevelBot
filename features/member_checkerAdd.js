@@ -36,7 +36,7 @@ module.exports = async (client, mongoClient) => {
                     });
                 }
             });
-        }, 1000 * 10);
+        }, 1000 * 60 * 10);
 
     })
 }

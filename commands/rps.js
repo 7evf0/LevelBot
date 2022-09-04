@@ -2,6 +2,7 @@ const { SlashCommandBuilder } = require('discord.js');
 const {readData} = require("../databaseFeatures/dbReadData.js");
 const {EmbedBuilder , ActionRowBuilder, ButtonBuilder, ButtonStyle, ComponentType} = require("discord.js");
 const {updateData} = require("../databaseFeatures/dbUpdateUser.js");
+const {addXP} = require("../features/changeXP.js");
 
 module.exports = {
     ...new SlashCommandBuilder()
@@ -195,8 +196,8 @@ module.exports.code = async (mongoClient, interaction) => {
                                 {name: "Result" , value: `${interaction.user} has won total of ${2*bid} XP's! `}
                             );
 
-                        await updateData(mongoClient, {"userID" : interaction.user} , {"XP": (inviterXP + bid)});
-                        await updateData(mongoClient, {"userID" : user} , {"XP": (accepterXP - bid)});
+                        await addXP(mongoClient,interaction.user.id,bid);
+                        await addXP(mongoClient,user.id,(-1) * bid);
 
                         await interaction.editReply({
                             embeds: [resultEmbed],
@@ -219,8 +220,8 @@ module.exports.code = async (mongoClient, interaction) => {
                             {name: "Result" , value: `${user} has won total of ${2*bid} XP's! `}
                         );
 
-                    await updateData(mongoClient, {"userID" : interaction.user} , {"XP": (inviterXP - bid)});
-                    await updateData(mongoClient, {"userID" : user} , {"XP": (accepterXP + bid)});
+                        await addXP(mongoClient,interaction.user.id,(-1) * bid);
+                        await addXP(mongoClient,user.id,bid);
 
                     await interaction.editReply({
                         embeds: [resultEmbed],
