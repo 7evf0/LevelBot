@@ -1,6 +1,10 @@
 
 const discord = require("discord.js");
 const {addXP} = require("../../features/changeXP")
+const {readData} = require("../../databaseFeatures/dbReadData")
+
+
+
 
 let voiceStates = {};
 // Client being ready event
@@ -12,7 +16,15 @@ module.exports = {
      * @param {discord.Client} client 
      */
     async event(client, mongoClient){
+        //all users
+        readData(mongoClient, {}).then(datas => {
+            datas.forEach(data => {
+                voiceStates[data.userID] = new Date();
+            })
+        });
+
         
+
         client.on("voiceStateUpdate", async (oldState, newState) => {
             try {
                 let newUserChannel = newState.channel;
@@ -30,6 +42,7 @@ module.exports = {
     
                     //time difference
                     let timeDifference = leaveTime.getTime() - joinTime.getTime();
+                    console.log(timeDifference);
                     addXP(mongoClient, id, timeDifference);
                 }
             }
