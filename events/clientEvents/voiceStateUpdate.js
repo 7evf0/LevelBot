@@ -42,8 +42,8 @@ module.exports = {
     
                     //time difference
                     let timeDifference = leaveTime.getTime() - joinTime.getTime();
-                    console.log(timeDifference);
-                    addXP(mongoClient, id, timeDifference);
+                    
+                    addXP(mongoClient, id, Math.round(timeDifference/1000));
                 }
             }
             catch(err){
