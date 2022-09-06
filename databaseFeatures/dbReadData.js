@@ -9,10 +9,9 @@ module.exports = {
      * @param {mongoose.Model} mongoClient 
      */
 
-    async updateData(mongoClient, filterSchema, newSchema){
+    async readData(mongoClient, filterSchema){
 
-        await mongoClient.updateMany(filterSchema,newSchema);
-
+        const docs = await mongoClient.find(filterSchema);
+        return docs;
     }
 }
-

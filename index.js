@@ -1,10 +1,21 @@
 
 const discord = require("discord.js");
+
+const dotenv = require("dotenv");
 const { IntentsBitField } = discord;
 const eventHandler = require("./events/eventHandler.js");
+const { REST } = require("@discordjs/rest");
+const { Routes } = require("discord.js");
+const commandHandler = require('./commands/commandHandler')
 const databaseConnect = require("./databaseFeatures/dbConnect.js");
+const { mongo } = require("mongoose");
 
+
+dotenv.config();
 let mongoClient;
+const TOKEN = process.env.TOKEN;
+const CLIENT_ID = process.env.CLIENT_ID;
+const GUILD_ID = process.env.GUILD_ID;
 
 /*
     BİREYSEL ÇALIŞIRKEN FARKLI BOTLAR ÜSTÜNDEN ÇALIŞMAK MANTIKLI OLABİLİR.
@@ -20,24 +31,47 @@ const client = new discord.Client({
         IntentsBitField.Flags.GuildVoiceStates,
         IntentsBitField.Flags.GuildMessageReactions,
         IntentsBitField.Flags.GuildMessageTyping,
-        IntentsBitField.Flags.Guilds
+        IntentsBitField.Flags.Guilds,
+
     ]
 });
 
+
 // main function
-async function main(){
-    
-    // gets the essential info (ex. bot token)
-    require("dotenv").config();
+async function main() {
 
-    // handles all the event files before running
-    eventHandler.handler(client);
+    try {
+        console.log('/ Command activations');
 
-    // connects the database to the application
-    mongoClient = databaseConnect();
+        // connects the database to the application
+        await databaseConnect().then((client) => {
+            mongoClient = client;
+        });
 
-    // logs the bot in
-    client.login(process.env.TOKEN);
-};
+        // handles all the event files before running
+        eventHandler.handler(client, mongoClient);
+
+        //activates the bot
+        await client.login(TOKEN);
+
+        //Path for / commands, method type: PUT
+        const rest = new REST({ version: '10' }).setToken(TOKEN);
+        await rest.put(Routes.applicationGuildCommands(CLIENT_ID, GUILD_ID), {
+            body: commandHandler.handler()
+        });
+
+    } catch (err) {
+        console.log(err);
+    }
+}
 
 main();
+
+
+
+
+
+
+
+
+
