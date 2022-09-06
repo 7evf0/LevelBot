@@ -22,11 +22,7 @@ module.exports = async (client, mongoClient) => {
 
     guild.members.fetch().then( async (members) => {
         //iterating over each member whether is it added to database
-
-            await dbConnect().then((client) => {
-                mongoClient = client;
-            });
-
+        setInterval(() => {
             members.forEach(member => {
                 if (!member.user.bot) {
                     
@@ -46,6 +42,8 @@ module.exports = async (client, mongoClient) => {
                     });
                 }
             });
+        }, 1000 * 60 * 5);
+            
 
     })
 }

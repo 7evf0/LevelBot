@@ -9,14 +9,32 @@ module.exports = async () => {
 
     //connecting Mongo database to the application
 
-    const client = new MongoClient(path);
-    await client.connect()
+    await mongoose.connect((path))
         .then(() => {
-            console.log("\nConnected to MongoDB\n");
+            console.log("Connected MongoDB");
         })
         .catch((err) => {
-            console.log("Error occured while connecting to database: " + err);
+            console.log("Error occured while connecting to MongoDB: " + err);
+        })
+
+        const collection_structure = new mongoose.Schema({
+            userID: {
+                type: String,
+                required: true
+            },
+            userName: {
+                type: String,
+                required: true
+            },
+            XP: {
+                type: Number,
+                required: true
+            },
+            Level: {
+                type: Number,
+                required: true
+            }
         });
 
-    return client;
+        return mongoose.model("users" , collection_structure);
 };

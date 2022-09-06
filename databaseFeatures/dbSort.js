@@ -1,18 +1,15 @@
 const discord = require("discord.js")
-const { MongoClient } = require("mongodb");
+const mongoose = require("mongoose");
 require("dotenv").config();
 
 /**
  * 
- * @param {MongoClient} mongoClient 
+ * @param {mongoose.Model} mongoClient 
  */
 
 module.exports = async (mongoClient) => {
 
-    const collection = mongoClient.db("LevelBotDatabase").collection("users");
-
-    const arr = (await collection.find().sort("XP").toArray()).reverse();
-
+    const arr = await mongoClient.find({}).sort('-XP');
     return arr;
 
 };
