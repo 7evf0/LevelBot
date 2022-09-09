@@ -1,6 +1,6 @@
 
 const discord = require("discord.js");
-const addDatabase = require("../../databaseFeatures/dbAddUser.js")
+const {addData} = require("../../databaseFeatures/dbAddUser.js")
 const dotenv = require("dotenv");
 dotenv.config()
 // this program executes after user joins the server
@@ -16,13 +16,14 @@ module.exports = {
 
         client.on("guildMemberAdd", (member) => {
             const welcomer = new discord.WebhookClient({
-                id: "1014560902839799860",
-                token: 'p0G_Wguy0mknxrTVroyvGfJCqWv-MiNKkW2Su0hQq6pQ-iWWAmznXU2zlViyVdTymYZL'
+                id: process.env.WEBHOOK_CHAT ,
+                token: process.env.WEBHOOK_TOKEN
             })
             
-            addDatabase.addData(mongoClient, {
+            addData(mongoClient, {
                 "userID": member.user.id,
                 "XP": 0,
+                "userName": member.user.username,
                 "Level": 1
             })
             const welcome = new discord.EmbedBuilder()

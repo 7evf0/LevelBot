@@ -35,6 +35,7 @@ module.exports = async (client, mongoClient) => {
                 })
                 //if isContain false, below code deletes the data in the database
                 if (!isContain) {
+                    console.log('member deleted')
                     deleteData(mongoClient, {
                         "userID": data.userID
                     })

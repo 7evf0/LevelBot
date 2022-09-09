@@ -15,8 +15,8 @@ module.exports = {
 
         client.on("guildMemberRemove", (member) => {
             const welcomer = new discord.WebhookClient({
-                id: "1014560902839799860",
-                token: 'p0G_Wguy0mknxrTVroyvGfJCqWv-MiNKkW2Su0hQq6pQ-iWWAmznXU2zlViyVdTymYZL'
+                id: process.env.WEBHOOK_CHAT ,
+                token: process.env.WEBHOOK_TOKEN
             })
 
             deleteDatabase.deleteData(mongoClient, {
