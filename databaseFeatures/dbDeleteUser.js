@@ -11,7 +11,7 @@ module.exports = {
 
     async deleteData(mongoClient, filterSchema){
 
-        mongoClient.deleteMany(filterSchema);
+        await mongoClient.deleteMany(filterSchema);
 
     }
 }

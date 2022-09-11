@@ -16,32 +16,27 @@ require("dotenv").config();
 module.exports = async (client, mongoClient) => {
     //discord server id
     const guild = client.guilds.cache.get(process.env.GUILD_ID);
-    //all datas in the database
-    const allDatas = readData(mongoClient, {});
+    let serverMembers = [];
+    
+    await guild.members.fetch().then(members => {
+        serverMembers = members;
+    })
+    
 
-    allDatas.then(datas => {
+    readData(mongoClient, {}).then(datas => {
         setInterval(() => {
             //iterating over all datas
             datas.forEach(data => {
-                //boolean for checking data if it is in the guild members
-                let isContain = false;
-
-                guild.members.fetch().then(members => {
-                    //iterating over guild members
-                    members.forEach(member => {
-                        //if data is in the guild members, isContain variable becomes true
-                        if (data.userID === member.user.id) isContain = true;
-                    })
-                })
                 //if isContain false, below code deletes the data in the database
-                if (!isContain) {
-                    console.log('member deleted')
+                if (!serverMembers.get(data.userID)) {
+                    console.log(data.userName)
+                    console.log(serverMembers.get(data.userID))
                     deleteData(mongoClient, {
                         "userID": data.userID
                     })
                 }
             })
-        }, 1000 * 60 * 10)
+        }, 1000 * 10)
     })
 
 }
