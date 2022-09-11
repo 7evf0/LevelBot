@@ -1,4 +1,3 @@
-
 const discord = require("discord.js");
 const {readData} = require("../../databaseFeatures/dbReadData")
 const {addData} = require("../../databaseFeatures/dbAddUser")
@@ -76,5 +75,5 @@ module.exports = {
 
     },
 
-    
+
 }
