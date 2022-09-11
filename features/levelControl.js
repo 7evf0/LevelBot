@@ -26,14 +26,14 @@ module.exports = {
         })
         
         //updating the level of the user
-        if(Math.floor(xp / 100) !== level){
+        
             updateData(mongoClient, {
                 "userID": userID
             },
             {
-                "Level": Math.floor(xp / 100)
+                "Level": Math.ceil(xp / 100)
             })
-        }
+        
     }
 }
 
