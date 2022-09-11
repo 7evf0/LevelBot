@@ -33,6 +33,8 @@ module.exports = {
             {
                 "Level": Math.ceil(xp / 100)
             })
+
+        console.log(Math.ceil(xp / 100));
         
     }
 }
