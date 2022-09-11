@@ -13,13 +13,13 @@ module.exports = {
      */
     async event(client, mongoClient) {
 
-        client.on("guildMemberRemove", (member) => {
+        client.on("guildMemberRemove",async (member) => {
             const welcomer = new discord.WebhookClient({
                 id: process.env.WEBHOOK_CHAT ,
                 token: process.env.WEBHOOK_TOKEN
             })
 
-            deleteDatabase.deleteData(mongoClient, {
+            await deleteDatabase.deleteData(mongoClient, {
                 "userID": member.user.id
             })
             const welcome = new discord.EmbedBuilder()

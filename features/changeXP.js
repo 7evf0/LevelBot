@@ -37,6 +37,6 @@ module.exports = {
         })
         
         //level control after changing of the xp
-        levelControl(mongoClient, userID)
+        await levelControl(mongoClient, userID)
     }
 }

@@ -3,7 +3,7 @@ const {MongoClient} = require("mongodb")
 const {rpsGame} = require("../../commands/rps.js");
 const {showXP} = require("../../commands/showxp.js");
 const {leaderboard} = require("../../commands/leaderboard.js");
-const {addXp} = require("../../features/changeXP")
+const {addXP} = require("../../features/changeXP")
 
 // Client interactionCreate event
 
@@ -22,7 +22,7 @@ module.exports = {
         client.on("interactionCreate", async (interaction) => {
 
             if(interaction.isCommand()){
-                addXp(mongoClient, interaction.user.id, 0.1)
+                addXP(mongoClient, interaction.user.id, 0.1)
 
                 if(interaction.commandName === 'rps'){
                     rpsGame(mongoClient, interaction);

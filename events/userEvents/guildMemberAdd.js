@@ -14,13 +14,13 @@ module.exports = {
      */
     async event(client, mongoClient) {
 
-        client.on("guildMemberAdd", (member) => {
+        client.on("guildMemberAdd",async (member) => {
             const welcomer = new discord.WebhookClient({
                 id: process.env.WEBHOOK_CHAT ,
                 token: process.env.WEBHOOK_TOKEN
             })
             
-            addData(mongoClient, {
+            await addData(mongoClient, {
                 "userID": member.user.id,
                 "XP": 0,
                 "userName": member.user.username,

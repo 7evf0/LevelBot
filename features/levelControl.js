@@ -27,7 +27,7 @@ module.exports = {
         
         //updating the level of the user
         
-            updateData(mongoClient, {
+        await    updateData(mongoClient, {
                 "userID": userID
             },
             {
