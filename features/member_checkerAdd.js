@@ -6,23 +6,11 @@ const dbConnect = require("../databaseFeatures/dbConnect.js");
 
 require("dotenv").config();
 
-
-
-/**
- * 
- * @param {discord.Client} client 
- * @param {MongoClient} mongoClient
- */
-
-module.exports = async (client, mongoClient) => {
-
-
-    //discord server id
+async function readAndApply(client, mongoClient){
     const guild = client.guilds.cache.get(process.env.GUILD_ID);
 
     guild.members.fetch().then( async (members) => {
         //iterating over each member whether is it added to database
-        setInterval(() => {
             members.forEach(member => {
                 if (!member.user.bot) {
                     
@@ -34,16 +22,29 @@ module.exports = async (client, mongoClient) => {
                                 "XP": 0,
                                 "userName": member.user.username,
                                 "Level": 1
-                            }) 
+                            })
                         }
                         else{
                             console.log("User exists!");
                         }
                     });
                 }
-            });
-        }, 1000 * 60 * 10);
-            
+            });          
 
-    })
+    });
+}
+
+/**
+ * 
+ * @param {discord.Client} client 
+ * @param {MongoClient} mongoClient
+ */
+
+module.exports = async (client, mongoClient) => {
+
+    readAndApply(client, mongoClient);
+    setInterval(async () => {
+        readAndApply(client,mongoClient);
+    }, 1000 * 60 * 10 );
+    
 }
